@@ -1,8 +1,5 @@
 package com.earl.calculator;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -46,13 +43,7 @@ public class Calculator2 {
 		 */
 		final JButton clearButton = new JButton("clr");
 		clearButton.setBounds(ORIGIN_X, SECOND_ROW, LETTER_WIDTH * 2, LETTER_HEIGHT);
-		clearButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				buffer.setText("");
-			}
-		});
+		clearButton.addActionListener(e -> buffer.setText(""));
 		frame.add(clearButton);
 
 		/**
@@ -67,31 +58,27 @@ public class Calculator2 {
 		 */
 		final JButton equalsButton = new JButton("=");
 		equalsButton.setBounds(ORIGIN_X, THIRD_ROW, LETTER_WIDTH, LETTER_HEIGHT);
-		equalsButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Buffer buffer1 = new Buffer(buffer.getText());
-				Lexer lexer = new Lexer(buffer1);
-				try {
-					Parser parser = new Parser(lexer);
-					double result = parser.sentence();
-					buffer.setText(Double.toString(result));
-					message.setText("Parsed!");
-				} catch (EndOfBufferException e1) {
-					message.setText(e1.getMessage());
-				} catch (ArithmeticException e1) {
-					message.setText(e1.getMessage());
-				} catch (UnexpectedCharacterException e1) {
-					message.setText(e1.getMessage());
-				} catch (UnexpectedTokenException e1) {
-					message.setText(e1.getMessage());
-				} catch (TokenMismatchException e1) {
-					message.setText(e1.getMessage());
-				} catch (Exception e1) {
-					message.setText("System error: " + e1.getMessage());
-					e1.printStackTrace();
-				}
+		equalsButton.addActionListener(e -> {
+			Buffer buffer1 = new Buffer(buffer.getText());
+			Lexer lexer = new Lexer(buffer1);
+			try {
+				Parser parser = new Parser(lexer);
+				double result = parser.sentence();
+				buffer.setText(Double.toString(result));
+				message.setText("Parsed!");
+			} catch (EndOfBufferException e1) {
+				message.setText(e1.getMessage());
+			} catch (ArithmeticException e1) {
+				message.setText(e1.getMessage());
+			} catch (UnexpectedCharacterException e1) {
+				message.setText(e1.getMessage());
+			} catch (UnexpectedTokenException e1) {
+				message.setText(e1.getMessage());
+			} catch (TokenMismatchException e1) {
+				message.setText(e1.getMessage());
+			} catch (Exception e1) {
+				message.setText("System error: " + e1.getMessage());
+				e1.printStackTrace();
 			}
 		});
 		frame.add(equalsButton);

@@ -1,8 +1,5 @@
 package com.earl.calculator;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -48,14 +45,7 @@ public class Calculator {
 			digitButtons[i] = new JButton(String.valueOf(i));
 			digitButtons[i].setBounds(ORIGIN_X + 25 * i, SECOND_ROW, LETTER_WIDTH, LETTER_HEIGHT);
 			final int j = i;
-			digitButtons[i].addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					buffer.setText(buffer.getText() + String.valueOf(j));
-				}
-
-			});
+			digitButtons[i].addActionListener(e -> buffer.setText(buffer.getText() + String.valueOf(j)));
 			frame.add(digitButtons[i]);
 		}
 
@@ -64,14 +54,10 @@ public class Calculator {
 		 */
 		final JButton deleteButton = new JButton("del");
 		deleteButton.setBounds(ORIGIN_X, THIRD_ROW, LETTER_WIDTH * 2, LETTER_HEIGHT);
-		deleteButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				final String s = buffer.getText();
-				if (!s.isEmpty()) {
-					buffer.setText(s.substring(0, s.length() - 1));
-				}
+		deleteButton.addActionListener(e -> {
+			final String s = buffer.getText();
+			if (!s.isEmpty()) {
+				buffer.setText(s.substring(0, s.length() - 1));
 			}
 		});
 		frame.add(deleteButton);
@@ -81,13 +67,7 @@ public class Calculator {
 		 */
 		final JButton clearButton = new JButton("clr");
 		clearButton.setBounds(ORIGIN_X + 25 * 2, THIRD_ROW, LETTER_WIDTH * 2, LETTER_HEIGHT);
-		clearButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				buffer.setText("");
-			}
-		});
+		clearButton.addActionListener(e -> buffer.setText(""));
 		frame.add(clearButton);
 
 		/**
@@ -105,13 +85,7 @@ public class Calculator {
 			specialButtons[j] = new JButton(specials[j]);
 			specialButtons[j].setBounds(ORIGIN_X + 25 * (j + 4), THIRD_ROW, LETTER_WIDTH, LETTER_HEIGHT);
 			final int k = j; // required for action listener.
-			specialButtons[j].addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					buffer.setText(buffer.getText() + specials[k]);
-				}
-			});
+			specialButtons[j].addActionListener(e -> buffer.setText(buffer.getText() + specials[k]));
 			frame.add(specialButtons[j]);
 		}
 
@@ -127,31 +101,27 @@ public class Calculator {
 		 */
 		final JButton equalsButton = new JButton("=");
 		equalsButton.setBounds(ORIGIN_X, FOURTH_ROW, LETTER_WIDTH, LETTER_HEIGHT);
-		equalsButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Buffer buffer1 = new Buffer(buffer.getText());
-				Lexer lexer = new Lexer(buffer1);
-				try {
-					Parser parser = new Parser(lexer);
-					double result = parser.sentence();
-					buffer.setText(Double.toString(result));
-					message.setText("Parsed!");
-				} catch (EndOfBufferException e1) {
-					message.setText(e1.getMessage());
-				} catch (ArithmeticException e1) {
-					message.setText(e1.getMessage());
-				} catch (UnexpectedCharacterException e1) {
-					message.setText(e1.getMessage());
-				} catch (UnexpectedTokenException e1) {
-					message.setText(e1.getMessage());
-				} catch (TokenMismatchException e1) {
-					message.setText(e1.getMessage());
-				} catch (Exception e1) {
-					message.setText("System error: " + e1.getMessage());
-					e1.printStackTrace();
-				}
+		equalsButton.addActionListener(e -> {
+			Buffer buffer1 = new Buffer(buffer.getText());
+			Lexer lexer = new Lexer(buffer1);
+			try {
+				Parser parser = new Parser(lexer);
+				double result = parser.sentence();
+				buffer.setText(Double.toString(result));
+				message.setText("Parsed!");
+			} catch (EndOfBufferException e1) {
+				message.setText(e1.getMessage());
+			} catch (ArithmeticException e1) {
+				message.setText(e1.getMessage());
+			} catch (UnexpectedCharacterException e1) {
+				message.setText(e1.getMessage());
+			} catch (UnexpectedTokenException e1) {
+				message.setText(e1.getMessage());
+			} catch (TokenMismatchException e1) {
+				message.setText(e1.getMessage());
+			} catch (Exception e1) {
+				message.setText("System error: " + e1.getMessage());
+				e1.printStackTrace();
 			}
 		});
 		frame.add(equalsButton);
