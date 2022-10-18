@@ -12,6 +12,11 @@ public class CharacterMismatchException extends RuntimeException {
 	final char expected;
 	final char actual;
 
+	/**
+	 * 
+	 * @param expected
+	 * @param actual
+	 */
 	public CharacterMismatchException(char expected, char actual) {
 		super("character mismatch: expected '" + expected + "', but saw '" + actual + "'");
 		this.expected = expected;

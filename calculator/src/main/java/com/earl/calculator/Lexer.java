@@ -10,6 +10,10 @@ public class Lexer {
 	final private Buffer buffer;
 	private double d;
 
+	/**
+	 * 
+	 * @param buffer
+	 */
 	public Lexer(Buffer buffer) {
 		this.buffer = buffer;
 	}

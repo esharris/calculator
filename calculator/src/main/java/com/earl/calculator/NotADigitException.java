@@ -11,6 +11,10 @@ public class NotADigitException extends RuntimeException {
 
 	final char actual;
 
+	/**
+	 * 
+	 * @param actual
+	 */
 	public NotADigitException(char actual) {
 		super("Expected digit, but saw '" + actual + "'");
 		this.actual = actual;

@@ -12,6 +12,11 @@ public class Parser {
 	private final Lexer lexer;
 	Token peek;
 
+	/**
+	 * 
+	 * @param lexer
+	 * @throws UnexpectedCharacterException
+	 */
 	public Parser(Lexer lexer) throws UnexpectedCharacterException {
 		this.lexer = lexer;
 		peek = lexer.getToken();
@@ -22,8 +27,9 @@ public class Parser {
 	}
 
 	/**
-	 * <sentence> ::= <expr> END_TOKEN
+	 * &lt;sentence&gt; ::= &lt;expr&gt; END_TOKEN
 	 * 
+	 * @return double
 	 * @throws UnexpectedCharacterException
 	 * @throws UnexpectedTokenException
 	 * @throws TokenMismatchException
@@ -35,7 +41,7 @@ public class Parser {
 	}
 
 	/**
-	 * <expr> ::= <product> ((PLUS_TOKEN|MINUS_TOKEN) <product>)*
+	 * &lt;expr&gt; ::= &lt;product&gt; ((PLUS_TOKEN|MINUS_TOKEN) <product>)*
 	 * 
 	 * @throws UnexpectedCharacterException
 	 * @throws UnexpectedTokenException
@@ -63,7 +69,7 @@ public class Parser {
 	}
 
 	/**
-	 * <product> ::= <power> ((TIMES_TOKEN|DIVIDE_TOKEN) <power>)*
+	 * &lt;product&gt; ::= &lt;power&gt; ((TIMES_TOKEN|DIVIDE_TOKEN) &lt;power&gt;)*
 	 * 
 	 * @throws UnexpectedCharacterException
 	 * @throws UnexpectedTokenException
@@ -98,7 +104,7 @@ public class Parser {
 	}
 
 	/**
-	 * <power> ::= <value> (EXPONENT_TOKEN <power>)?
+	 * &lt;power&gt; ::= &lt;value&gt; (EXPONENT_TOKEN &lt;power&gt;)?
 	 * 
 	 * @throws UnexpectedCharacterException
 	 * @throws UnexpectedTokenException
@@ -118,8 +124,8 @@ public class Parser {
 	}
 
 	/**
-	 * <value> ::= NUMBER_TOKEN | MINUS_TOKEN NUMBER_TOKEN | LEFT_PARENTHESIS <expr>
-	 * RIGHT_PARENTHESIS
+	 * &lt;value&gt; ::= NUMBER_TOKEN | MINUS_TOKEN NUMBER_TOKEN | LEFT_PARENTHESIS
+	 * &lt;expr&gt; RIGHT_PARENTHESIS
 	 * 
 	 * @throws UnexpectedCharacterException
 	 * @throws UnexpectedTokenException

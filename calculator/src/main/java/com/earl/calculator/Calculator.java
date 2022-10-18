@@ -22,6 +22,10 @@ public class Calculator {
 	private static final int FOURTH_ROW = ORIGIN_Y + 150;
 	private static final int FIFTH_ROW = ORIGIN_Y + 200;
 
+        /**
+         * 
+         * @param args 
+         */
 	public static void main(String[] args) {
 
 		final JFrame frame = new JFrame("Calculator");
@@ -109,19 +113,8 @@ public class Calculator {
 				double result = parser.sentence();
 				buffer.setText(Double.toString(result));
 				message.setText("Parsed!");
-			} catch (EndOfBufferException e1) {
+			} catch (EndOfBufferException | ArithmeticException | TokenMismatchException | UnexpectedCharacterException | UnexpectedTokenException e1) {
 				message.setText(e1.getMessage());
-			} catch (ArithmeticException e1) {
-				message.setText(e1.getMessage());
-			} catch (UnexpectedCharacterException e1) {
-				message.setText(e1.getMessage());
-			} catch (UnexpectedTokenException e1) {
-				message.setText(e1.getMessage());
-			} catch (TokenMismatchException e1) {
-				message.setText(e1.getMessage());
-			} catch (Exception e1) {
-				message.setText("System error: " + e1.getMessage());
-				e1.printStackTrace();
 			}
 		});
 		frame.add(equalsButton);
